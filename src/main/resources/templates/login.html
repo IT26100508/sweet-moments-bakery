@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in | Sweet Moments Bakery</title><link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="auth-page">
+<div class="auth-shell">
+  <section class="auth-art">
+    <div class="cake-mark">
+      <video class="tip-cake-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"><source th:src="@{/videos/loginmp4.mp4}" type="video/mp4">
+      </video>
+    </div>
+    <p class="eyebrow">SWEET MOMENTS, MADE PERSONAL</p>
+    <h1>Your next celebration starts here.</h1>
+    <p>Sign in to manage your bakery profile and keep your custom cake plans in one place.</p>
+    <div class="sprinkles">✦ ♡ ✧ ♡ ✦</div>
+  </section>
+  <main class="auth-card">
+    <a class="brand" th:href="@{/}"><span class="brand-icon">✿</span> Sweet Moments Bakery</a>
+    <p class="eyebrow">WELCOME BACK</p><h2>Sign in to your account</h2><p class="muted">Enter your details below.</p>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+    <div class="alert success" th:if="${param.loggedOut}">You have been signed out.</div>
+    <div class="alert" th:if="${param.checkout}">Sign in to place your order. Your basket stays in this browser session; return to the basket after signing in.</div>
+    <div class="alert" th:if="${param.customCake}">Sign in before submitting your custom cake request.</div>
+    <div class="alert" th:if="${next == '/bookings/new'}">Sign in to create your booking. After signing in, you will return to the booking form.</div>
+    <form th:action="@{/login}" th:object="${form}" method="post">
+      <input type="hidden" name="next" th:if="${!#strings.isEmpty(next)}" th:value="${next}">
+      <label for="email">Email address</label><input id="email" type="email" th:field="*{email}" placeholder="you@example.com" required autocomplete="email">
+      <label for="password">Password</label><input id="password" type="password" th:field="*{password}" placeholder="Enter your password" required autocomplete="current-password">
+      <button class="button primary full" type="submit">Sign in <span>→</span></button>
+    </form>
+    <p class="form-foot">New to Sweet Moments? <a th:href="@{/register(next=${next})}">Create an account</a><br><a th:href="@{/shop}">Browse the menu first →</a></p>
+    <p class="demo-note"><strong>Project demo admin</strong><br>admin@bakery.com / Admin123!</p>
+  </main>
+</div>
+</body></html>
