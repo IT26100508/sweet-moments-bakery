@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My profile | Sweet Moments Bakery</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head>
+<body class="app-page">
+<header class="topbar"><a class="brand" th:href="@{/dashboard}"><span class="brand-icon">✿</span> Sweet Moments Bakery</a><nav class="topnav"><a th:href="@{/dashboard}">Dashboard</a><a class="active" th:href="@{/profile}">My profile</a><a th:if="${user.admin}" th:href="@{/admin/users}">User management</a><form th:action="@{/logout}" method="post"><button class="link-button" type="submit">Sign out ↗</button></form></nav></header>
+<main class="page-container narrow"><div class="page-heading"><p class="eyebrow">ACCOUNT SETTINGS</p><h1>My profile</h1></div>
+  <div class="alert success" th:if="${param.saved}">Your profile was updated successfully.</div><div class="alert error" th:if="${error}" th:text="${error}"></div>
+  <section class="panel profile-panel"><div class="profile-avatar" th:text="${#strings.substring(user.name,0,1).toUpperCase()}">S</div><div><h2 th:text="${user.name}">Your name</h2><p class="muted" th:text="${user.email}">email@example.com</p><span class="role-chip" th:text="${user.role}">CUSTOMER</span></div>
+    <form class="profile-form" th:action="@{/profile}" th:object="${form}" method="post"><label for="name">Full name</label><input id="name" type="text" th:field="*{name}" required maxlength="80"><label for="phone">Phone number</label><input id="phone" type="tel" th:field="*{phone}" maxlength="30" placeholder="Optional"><label for="address">Address</label><textarea id="address" th:field="*{address}" rows="3" maxlength="200" placeholder="Optional"></textarea><div class="form-actions"><a class="button outline" th:href="@{/dashboard}">Cancel</a><button class="button primary" type="submit">Save changes</button></div></form>
+  </section></main></body></html>
